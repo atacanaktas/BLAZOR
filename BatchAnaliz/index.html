@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Global Data - Multi Charts</title>
+  <style>
+    body { font-family: Arial; margin: 20px; background: #f8f8f8; }
+    #dropZone {
+      padding: 10px;
+      border: 2px dashed #888;
+      width: 300px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      background: #fff;
+    }
+    .chart-box {
+    border: 1px solid #aaa;
+    padding: 10px;
+    margin-top: 15px;
+    /* height: 200px; */  /* eski küçük yükseklik kaldırıldı */
+    height: 90vh;          /* ekranın %90’ını kaplasın */
+    width: 95vw;           /* genişliği ekranın %95’i */
+}
+  </style>
+</head>
+<body>
+  <h2>Global Data Filter - Çoklu Grafik Örneği</h2>
+
+  <div id="dropZone">JSON Dosyasını Buraya Sürükle</div>
+
+  <input id="searchBox" type="text" placeholder='ör: JOBNAME == "PBORI97583"'>
+  <button onclick="applyFilter()">Filtrele</button>
+
+  <div id="charts">
+    <div id="chart1" class="chart-box"></div>
+    <div id="chart2" class="chart-box"></div>
+    <div id="chart3" class="chart-box"></div>
+	<div id="chart4" class="chart-box"></div>
+  </div>
+
+  <!-- Scriptleri yükleme sırası önemli -->
+  <link href="https://unpkg.com/vis-network/styles/vis-network.css" rel="stylesheet" />
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="js/global.js"></script>
+  <script src="js/chart1.js"></script>
+  <script src="js/chart2.js"></script>
+  <script src="js/chart3.js"></script>
+  <script src="js/chart4.js"></script>
+  
+
+  <script>
+    // Sürükle-bırak eventi
+    var dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      dropZone.style.borderColor = 'green';
+    });
+    dropZone.addEventListener('dragleave', function(e) {
+      dropZone.style.borderColor = '#888';
+    });
+    dropZone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      dropZone.style.borderColor = '#888';
+      var file = e.dataTransfer.files[0];
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          globalData = JSON.parse(ev.target.result);
+          console.log("JSON yüklendi:", globalData);
+
+          // dataLoaded eventi fırlat
+          var event = new CustomEvent("dataLoaded", { detail: globalData });
+          document.dispatchEvent(event);
+        } catch(err) {
+          alert("JSON hatalı: " + err);
+        }
+      };
+      reader.readAsText(file);
+    });
+  </script>
+</body>
+</html>
