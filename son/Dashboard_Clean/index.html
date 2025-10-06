@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container-fluid p-3">
+        <!-- Üst Bar -->
+        <div class="row mt-3">
+            <div class="col-md-11">
+                <div id="dropZone" class="p-4 border border-secondary rounded text-center">
+                    Burası filter Text Box olacak
+                </div>
+            </div>
+            <div class="col-md-1">
+                Burası Buton olacak
+            </div>
+        </div>
+
+        <!-- Tab Control -->
+        <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab">General</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="timeline-tab" data-bs-toggle="tab" data-bs-target="#timeline" type="button" role="tab">Timeline</button>
+            </li>
+        </ul>
+
+        <!-- Tab İçeriği -->
+        <div class="tab-content">
+            <!-- General -->
+            <div class="tab-pane fade show active" id="general" role="tabpanel">
+                <div class="card p-3 border border-secondary">
+                    <div class="row mt-3">
+                        <div class="col-md-2">
+                            <div id="general-chart-count" class="chart-box mb-3 border border-secondary p-2" style="height:24vh;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div id="general-chart-avg-elapsed" class="chart-box mb-3 border border-secondary p-2" style="height:24vh;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div id="general-chart-avg-deviation" class="chart-box mb-3 border border-secondary p-2" style="height:24vh;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            Ortalama CPU tüketimi
+                        </div>
+                        <div class="col-md-2">
+                            Ortalama blocklanma/bekleme süresi
+                        </div>
+                        <div class="col-md-2">
+                            <div id="general-chart-avg-dependency" class="chart-box mb-3 border border-secondary p-2" style="height:24vh;"></div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-2">
+                            Ortalama I/O sayıları
+                        </div>
+                        <div class="col-md-3">
+                            <div id="general-chart-system-distribution" class="chart-box mb-3 border border-secondary p-2" style="height:30vh;"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="general-chart-dataset-distribution" class="chart-box mb-3 border border-secondary p-2" style="height:30vh;"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="general-chart-jobclass-distribution" class="chart-box mb-3 border border-secondary p-2" style="height:30vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Timeline -->
+            <div class="tab-pane fade show active" id="timeline" role="tabpanel">
+                <div class="card p-3 border border-secondary">
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div id="timeline-chart-active-jobs-timeline" class="chart-box mb-3 border border-secondary p-2" style="height:30vh;"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="timeline-chart-tot-serv-unit" class="chart-box mb-3 border border-secondary p-2" style="height:30vh;"></div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div id="tree-chart-jobs" class="chart-box mb-3 border border-secondary p-2" style="height:70vh;"></div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div id="graph-chart-jobs-by-time" class="chart-box mb-3 border border-secondary p-2" style="height:70vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scriptleri yükleme sırası önemli -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://unpkg.com/vis-network/styles/vis-network.css" rel="stylesheet" />
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="js/app.js"></script>
+    <!-- general -->
+    <script src="js/charts/general/dataCountChart.js"></script>
+    <script src="js/charts/general/dataAvarageElapsedTimeChart.js"></script>
+    <script src="js/charts/general/dataAvarageDeviationChart.js"></script>
+    <script src="js/charts/general/dataAvarageDependencyChart.js"></script>
+    <script src="js/charts/general/dataSystemDistributionChart.js"></script>
+    <script src="js/charts/general/dataDatasetChart.js"></script>
+    <script src="js/charts/general/dataJobclassChart.js"></script>
+    <!-- timeline -->
+    <script src="js/charts/timeline/timelineActiveJobsChart.js"></script>
+    <script src="js/charts/timeline/timelineTotServUnitChart.js"></script>
+    <!-- graph -->
+    <script src="js/charts/timeline/dataJobTreeChart.js"></script>
+    <script src="js/charts/timeline/dataJobGraphByStartTime.js"></script>
+
+</body>
+</html>
